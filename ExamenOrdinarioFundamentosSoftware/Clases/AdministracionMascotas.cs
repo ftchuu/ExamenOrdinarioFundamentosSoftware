@@ -10,8 +10,8 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
     public class AdminstracionMascotas
     {
 
-        private List<Mascota> mascotas = new List<Mascota>();
-        private List<Dueño> dueños = new List<Dueño>();
+        private List<IMascota> mascotas = new List<IMascota>();
+        private List<Persona> dueños = new List<Persona>();
 
         static void Main(string[] args)
         {
@@ -29,7 +29,7 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
             System.Console.WriteLine("Mascotas registradas:");
             foreach (var mascota in mascotas)
             {
-                System.Console.WriteLine($"Id: {mascota.Id}, Nombre: {mascota.Nombre}, Especie: {mascota.Especie}");
+                //System.Console.WriteLine($"Id: {mascota.Id}, Nombre: {mascota.Nombre}, Especie: {mascota.Especie}");
             }
 
         }
@@ -40,12 +40,12 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
             System.Console.WriteLine("Perro, Gato, Capibara, Pajaro");
             Especie especie = Enum.Parse<Especie> (Console.ReadLine(), ignoreCase: true);
 
-            Mascota nuevaMascota = new Mascota;
+            IMascota nuevaMascota = CrearMascota(especie);
 
             System.Console.Write("¿Desea asignar un dueño a la mascota? (S/N): ");
             if (System.Console.ReadLine().ToUpper() == "S")
             {
-                AsignarDueño(nuevaMascota);
+               AsignarDueño(nuevaMascota);
             }
 
             // Se agrega una nueva mascota
@@ -55,7 +55,92 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
 
         }
 
-        private void AsignarDueño(Mascota mascota)
+        private IMascota CrearMascota(Especie especie)
+        {
+            switch (especie)
+            {
+                case Especie.Perro:
+                    return CrearPerro();
+                case Especie.Gato:
+                    return CrearGato();
+                /*case Especie.Capibara:
+                    return CrearCapibara();*/
+                case Especie.Pajaro:
+                    return CrearPajaro();
+                default:
+                    throw new InvalidOperationException("Especie no válida");
+            }
+        }
+
+        private IMascota CrearPerro()
+        {
+            System.Console.Write("Ingrese el nombre del perro: ");
+            string nombre = Console.ReadLine();
+
+            System.Console.Write("Ingrese la edad del perro: ");
+            int edad = int.Parse(Console.ReadLine());
+
+            System.Console.Write("Ingrese el temperamento del perro: ");
+            string temperamentoStr = Console.ReadLine();
+            Temperamento temperamento = Enum.Parse<Temperamento>(temperamentoStr, ignoreCase: true);
+
+            Persona dueño;
+            
+            return new Perro(nombre, edad, temperamento, dueño = null);
+        }
+
+        private IMascota CrearGato()
+        {
+            System.Console.Write("Ingrese el nombre del gato: ");
+            string nombre = Console.ReadLine();
+
+            System.Console.Write("Ingrese la edad del gato: ");
+            int edad = int.Parse(Console.ReadLine());
+
+            System.Console.Write("Ingrese el temperamento del gato: ");
+            string temperamentoStr = Console.ReadLine();
+            Temperamento temperamento = Enum.Parse<Temperamento>(temperamentoStr, ignoreCase: true);
+
+            Persona dueño;
+            
+            return new Gato(nombre, edad, temperamento, dueño = null);
+        }
+
+        /*private IMascota CrearCapibara()
+        {
+            System.Console.Write("Ingrese el nombre del perro: ");
+            string nombre = Console.ReadLine();
+
+            System.Console.Write("Ingrese la edad del perro: ");
+            int edad = int.Parse(Console.ReadLine());
+
+            System.Console.Write("Ingrese el temperamento del perro: ");
+            string temperamentoStr = Console.ReadLine();
+            Temperamento temperamento = Enum.Parse<Temperamento>(temperamentoStr, ignoreCase: true);
+
+            Persona dueño;
+            
+            return new Capibara(nombre, edad, temperamento, dueño = null);
+        }*/
+
+        private IMascota CrearPajaro()
+        {
+            System.Console.Write("Ingrese el nombre del perro: ");
+            string nombre = Console.ReadLine();
+
+            System.Console.Write("Ingrese la edad del perro: ");
+            int edad = int.Parse(Console.ReadLine());
+
+            System.Console.Write("Ingrese el temperamento del perro: ");
+            string temperamentoStr = Console.ReadLine();
+            Temperamento temperamento = Enum.Parse<Temperamento>(temperamentoStr, ignoreCase: true);
+
+            Persona dueño;
+            
+            return new Pajaro(nombre, edad,temperamento, dueño = null);
+        }
+
+        private void AsignarDueño(IMascota mascota)
         {
             System.Console.Write("¿Conoce el ID del dueño de la mascota? (S/N): ");
             if (System.Console.ReadLine().ToUpper() == "S")
@@ -63,15 +148,15 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
                 System.Console.Write("Ingrese el ID del dueño de la mascota: ");
                 int idDueño = int.Parse(Console.ReadLine());
 
-                Persona dueño = personas.FirstOrDefault(p => p.Id == idDueño);
+                Persona dueño = dueños.FirstOrDefault(p => p.Id == idDueño);
 
                 // Se asigna un dueño a la mascota dependiendo de si el dueño existe, si no, se da la opción de buscar por nombre
                 if (dueño != null)
                 {
                     mascota.Dueño = dueño;
-                    dueño.Mascotas.Add(mascota);
+                    dueño.AgregarMascota(mascota);
 
-                    System.Console.WriteLine($"Dueño asignado: {dueño.Nombre}");
+                    System.Console.WriteLine($"Dueño asignado: {dueño.Name}");
                 }
                 else
                 {
@@ -84,7 +169,7 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
             }
         }
 
-        private void BuscarPersonaPorNombre(Mascota mascota)
+        private void BuscarPersonaPorNombre(IMascota mascota)
         {
             System.Console.Write("¿Desea buscar al dueño por nombre? (S/N): ");
             if (System.Console.ReadLine().ToUpper() == "S")
@@ -93,25 +178,25 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
                 string nombreDueño = Console.ReadLine();
 
                 // se busca la persona y se dan dos opciones dependiendo de cuantas personas se encontraron
-                var personasEncontradas = personas
-                
-                    .Where(p => p.Nombre.ToLower().Contains(nombreDueño.ToLower()))
-                    .ToList();
+
+                var personasEncontradas = dueños
+                .Where(p => p.Name.ToLower().Contains(nombreDueño.ToLower()))
+                .ToList();
 
                 if (personasEncontradas.Count == 1)
                 {
                     Persona dueñoEncontrado = personasEncontradas.First();
                     mascota.Dueño = dueñoEncontrado;
-                    dueñoEncontrado.Mascotas.Add(mascota);
+                    dueñoEncontrado.AgregarMascota(mascota);
 
-                    System.Console.WriteLine($"Dueño asignado: {dueñoEncontrado.Nombre}");
+                    System.Console.WriteLine($"Dueño asignado: {dueñoEncontrado.Name}");
                 }
                 else if (personasEncontradas.Count > 1)
                 {
                     System.Console.WriteLine("Múltiples personas encontradas:");
                     foreach (var persona in personasEncontradas)
                     {
-                        Console.WriteLine($"Id: {persona.Id}, Nombre: {persona.Nombre}");
+                        Console.WriteLine($"Id: {persona.Id}, Nombre: {persona.Name}");
                     }
 
                     System.Console.Write("Ingrese el ID del dueño de la mascota: ");
@@ -122,9 +207,9 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
                     if (dueñoSeleccionado != null)
                     {
                         mascota.Dueño = dueñoSeleccionado;
-                        dueñoSeleccionado.Mascotas.Add(mascota);
+                        dueñoSeleccionado.mascotas.Add(mascota);
 
-                        System.Console.WriteLine($"Dueño asignado: {dueñoSeleccionado.Nombre}");
+                        System.Console.WriteLine($"Dueño asignado: {dueñoSeleccionado.Name}");
                     }
                     else
                     {
@@ -177,11 +262,11 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
         {
             System.Console.WriteLine($"Mascotas de la especie: {especie}");
 
-            var mascotasEncontradas = mascotas
+            /*var mascotasEncontradas = mascotas
                 .Where(m => m.Especie.ToLower() == especie.ToString().ToLower())
                 .ToList();
 
-            MostrarMascotasEncontradas(mascotasEncontradas);
+            MostrarMascotasEncontradas(mascotasEncontradas);*/
 
         }
 
@@ -200,12 +285,12 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
             
         }
 
-        private void MostrarMascotasEncontradas(List<Mascota> mascotasEncontradas)
+        private void MostrarMascotasEncontradas(List<IMascota> mascotasEncontradas)
         {
             System.Console.WriteLine("Mascotas encontradas:");
             foreach (var mascota in mascotasEncontradas)
             {
-                System.Console.WriteLine($"Id: {mascota.Id}, Nombre: {mascota.Nombre}, Especie: {mascota.Especie}");
+                //System.Console.WriteLine($"Id: {mascota.Id}, Nombre: {mascota.Nombre}, Especie: {mascota.Especie}");
             }
         }
 
@@ -214,10 +299,10 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
             System.Console.WriteLine("Ingrese el ID de la mascota que desea examinar");
             int idMascota = int.Parse(Console.ReadLine());
 
-            Mascota mascota = mascotas.FirstOrDefault(m => m.Id == idMascota);
+            /*Mascota mascota = mascotas.FirstOrDefault(m => /*m.Id == idMascota);
 
             // se busca la mascota por Id, si no existe o es erroneo, se le da la opción al usuario de buscar por nombre
-            if (mascota != null)
+            /*if (mascota != null)
             {
                 MostrarDatosMascota(mascota);
             }
@@ -244,13 +329,13 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
                         System.Console.WriteLine("Múltiples mascotas encontradas:");
                         foreach (var mascotaEncontrada in mascotasEncontradas)
                         {
-                            Console.WriteLine($"Id: {mascotaEncontrada.Id}, Nombre: {mascotaEncontrada.Nombre}, Especie: {mascotaEncontrada.Especie}");
+                            Console.WriteLine($"Id: {mascotaEncontrada.Id}, Nombre: {mascotaEncontrada.Nombre}, Especie: {/*mascotaEncontrada.Especie}");
                         }
 
                         System.Console.Write("Ingrese el ID de la mascota que desea examinar: ");
                         int idMascotaSeleccionada = int.Parse(Console.ReadLine());
 
-                        Mascota mascotaSeleccionada = mascotasEncontradas.FirstOrDefault(m => m.Id == idMascotaSeleccionada);
+                        IMascota mascotaSeleccionada = mascotasEncontradas.FirstOrDefault(m => /*m.Id == idMascotaSeleccionada);
 
                         if (mascotaSeleccionada != null)
                         {
@@ -267,16 +352,15 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
                         System.Console.WriteLine("No se encontraron mascotas con ese nombre.");
                     }
                 }
-            }
+            }*/
 
         }
 
-        private void MostrarDatosMascota(Mascota mascota)
+        private void MostrarDatosMascota(IMascota mascota)
         {
             System.Console.WriteLine($"Datos de la mascota:");
             System.Console.WriteLine($"Id: {mascota.Id}");
             System.Console.WriteLine($"Nombre: {mascota.Nombre}");
-            System.Console.WriteLine($"Especie: {mascota.Especie}");
             System.Console.WriteLine($"Temperamento: {mascota.Temperamento}");
             System.Console.WriteLine($"Edad: {mascota.Edad}");
 
