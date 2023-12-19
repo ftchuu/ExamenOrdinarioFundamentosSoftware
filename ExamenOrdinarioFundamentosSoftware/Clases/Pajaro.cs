@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExamenOrdinarioFundamentosSoftware.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ExamenOrdinarioFundamentosSoftware.Clases
 {
-    public class Pajaro : IMascota
+    public class Pajaro : IMascota, IBailarina
     {
         private string _id;
         public string Id { get { return _id; } }
@@ -33,7 +34,6 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
             Console.WriteLine($"{Nombre} está aleteando");
         }
 
-        //agregar comportamiento de baile -> comportamiento o interfaz?
 
         public Pajaro(string nombre, int edad, string id, Temperamento temperamento, Persona dueño)
         {
@@ -50,5 +50,9 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
             dueño = Dueño;
         }
 
+        public void Bailar()
+        {
+            Console.WriteLine($"{Nombre} está agitando las plumas");
+        }
     }
 }
