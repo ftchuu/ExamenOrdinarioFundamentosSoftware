@@ -4,24 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace ExamenOrdinarioFundamentosSoftware.Clases
 {
     public class Gato : IMascota
     {
-        private static int contadorGatos = 1;
-        private const int EdadMaxGato = 18;
+        private static int contadorGato = 1;
+        private const int EdadMaxima = 18;
 
         public string Id { get; }
         public string Nombre { get; }
-        public int Edad { get; }
+        public int Edad { get; set; }
         public Temperamento Temperamento { get; }
-        public Dueño Dueño { get; private set; }
+        public Persona Dueño { get; set; }
 
-        public Gato(string nombre, int edad, Temperamento temperamento, Dueño dueño = null)
+        public Gato(string nombre, int edad, Temperamento temperamento, Persona dueño)
         {
-            Id = $"Gato-{contadorGatos++}";
+            Id = $"Gato-{contadorGato++}";
             Nombre = nombre;
-            Edad = (edad >= 0 && edad <= EdadMaxGato) ? edad : EdadMaxGato;
+            Edad = (edad > EdadMaxima) ? EdadMaxima : edad;
             Temperamento = temperamento;
             Dueño = dueño;
         }
@@ -33,13 +34,8 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
 
         public void CambiarDueño(Persona nuevoDueño)
         {
-            if (nuevoDueño != null)
-            {
-                Dueño = nuevoDueño;
-                Console.WriteLine($"El gato {Nombre} ha cambiado su dueño a {nuevoDueño.Nombre}");
-            }
+            Console.WriteLine($"{Nombre} ha cambiado su dueño a {nuevoDueño.Name}");
+            Dueño = nuevoDueño;
         }
-
-        // Otros métodos específicos de los gatos
     }
 }
