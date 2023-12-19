@@ -11,11 +11,12 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
     public class Pajaro : IMascota, IBailarina
     {
         private string _id;
-        public string Id { get { return _id; } }
+        public string Id { get { return _id; } set { _id = value; } }
         private string _nombre;
         public string Nombre { get { return _nombre; } }
         public int Edad { get; set; }
         public Temperamento Temperamento { get; }
+        public Especie Especie { get; set; }
         public Persona Dueño { get; set; }
         private int EdadMaxima = 8;
         private int contadorPajaro = 0;
@@ -35,7 +36,7 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
         }
 
 
-        public Pajaro(string nombre, int edad, string id, Temperamento temperamento, Persona dueño)
+        public Pajaro(string nombre, int edad, Temperamento temperamento, Persona dueño)
         {
             nombre = Nombre;
             if (edad > EdadMaxima)
@@ -48,6 +49,8 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
             }
             temperamento = Temperamento;
             dueño = Dueño;
+            this.Id = $"Pájaro - {contadorPajaro++}";
+            this.Especie = Especie.Pajaro;
         }
 
         public void Bailar()
