@@ -30,11 +30,12 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
         private int contadorPersona = 0;
          
         public List<IMascota> mascotas;
-        public Persona (string nombre, int id)
+        public Persona (string nombre)
         {
             nombre = Name;
             id = contadorPersona++;
             id = this.Id;
+            mascotas = new List<IMascota>();
         }
         public List<IMascota> ObtenerMascotas()
         {
@@ -66,13 +67,12 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
         }
         public void AcariciarMascotas()
         {
-            foreach(var mascota in mascotas)
+            foreach (var mascota in Mascotas)
             {
-                if (mascota is IAcariciable)
+                if (mascota is IAcariciable acariciable)
                 {
-
-                    AcariciarMascota(mascota as IAcariciable);
-                    
+                    Console.WriteLine($"{Name} acaricia a {acariciable.Nombre}");
+                    acariciable.SerAcariciado(); // Llamada al método SerAcariciado
                 }
                 else
                 {
