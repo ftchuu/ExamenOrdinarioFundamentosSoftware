@@ -12,6 +12,7 @@ public interface IMascota
     string Nombre { get; }
     int Edad { get; }
     Temperamento Temperamento { get; }
+    Especie Especie { get; }
     Persona Dueño { get; }
 
     void HacerRuido();
