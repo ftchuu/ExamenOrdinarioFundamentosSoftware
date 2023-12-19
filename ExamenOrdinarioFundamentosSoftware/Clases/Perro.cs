@@ -16,6 +16,7 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
         public string Nombre { get; }
         public int Edad { get; set; }
         public Temperamento Temperamento { get; }
+        public Especie Especie { get; set; }
         public Persona Dueño { get; set; }
 
         public Perro(string nombre, int edad, Temperamento temperamento, Persona dueño)
@@ -25,6 +26,7 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
             Edad = (edad > EdadMaxima) ? EdadMaxima : edad;
             Temperamento = temperamento;
             Dueño = dueño;
+            this.Especie = Especie.Perro;
         }
 
         public void HacerRuido()
