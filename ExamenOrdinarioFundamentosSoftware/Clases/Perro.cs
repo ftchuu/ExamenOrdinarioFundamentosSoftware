@@ -9,6 +9,7 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
     public class Perro : IMascota
     {
         private static int contadorPerros = 1;
+        private const int EdadMaxPerro = 14;
 
         public string Id { get; }
         public string Nombre { get; }
@@ -20,7 +21,7 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
         {
             Id = $"Perro-{contadorPerros++}";
             Nombre = nombre;
-            Edad = (edad >= 0) ? edad : 0;
+            Edad = (edad >= 0 && edad <= EdadMaxPerro) ? edad : EdadMaxPerro;
             Temperamento = temperamento;
             Dueño = dueño;
         }
@@ -39,6 +40,6 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
             }
         }
 
-        
+        // Otros métodos específicos de los perros
     }
 }
