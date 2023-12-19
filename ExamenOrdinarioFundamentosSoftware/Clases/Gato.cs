@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExamenOrdinarioFundamentosSoftware.Clases
 {
-    public class Capibara
+    public class Gato
     {
     }
 }
