@@ -26,7 +26,7 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
 
         public void MostrarMascotas(){
 
-            Console.WriteLine("Mascotas registradas:");
+            System.Console.WriteLine("Mascotas registradas:");
             foreach (var mascota in mascotas)
             {
                 System.Console.WriteLine($"Id: {mascota.Id}, Nombre: {mascota.Nombre}, Especie: {mascota.Especie}");
@@ -36,9 +36,106 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
 
         public void RegistrarMascota(){
 
+            System.Console.WriteLine("Ingrese la especie de la mascota");
+            System.Console.WriteLine("Perro, Gato, Capibara, Pajaro");
+            Especie especie = Enum.Parse<Especie> (Console.ReadLine(), ignoreCase: true);
+
+            Mascota nuevaMascota = new Mascota;
+
+            System.Console.Write("¿Desea asignar un dueño a la mascota? (S/N): ");
+            if (System.Console.ReadLine().ToUpper() == "S")
+            {
+                AsignarDueño(nuevaMascota);
+            }
+
+            mascotas.Add(nuevaMascota);
+
+            System.Console.WriteLine("Mascota registrada exitosamente.");
+
         }
 
-        public void BuscarPorEspecie(EspecieEnum especie){
+        private void AsignarDueño(Mascota mascota)
+        {
+            System.Console.Write("¿Conoce el ID del dueño de la mascota? (S/N): ");
+            if (System.Console.ReadLine().ToUpper() == "S")
+            {
+                System.Console.Write("Ingrese el ID del dueño de la mascota: ");
+                int idDueño = int.Parse(Console.ReadLine());
+
+                Persona dueño = personas.FirstOrDefault(p => p.Id == idDueño);
+
+                if (dueño != null)
+                {
+                    mascota.Dueño = dueño;
+                    dueño.Mascotas.Add(mascota);
+
+                    System.Console.WriteLine($"Dueño asignado: {dueño.Nombre}");
+                }
+                else
+                {
+                    System.Console.WriteLine("No se encontró ninguna persona con ese ID.");
+                }
+            }
+            else
+            {
+                BuscarPersonaPorNombre(mascota);
+            }
+        }
+
+        private void BuscarPersonaPorNombre(Mascota mascota)
+        {
+            System.Console.Write("¿Desea buscar al dueño por nombre? (S/N): ");
+            if (System.Console.ReadLine().ToUpper() == "S")
+            {
+                System.Console.Write("Ingrese el nombre del dueño: ");
+                string nombreDueño = Console.ReadLine();
+
+                var personasEncontradas = personas
+                
+                    .Where(p => p.Nombre.ToLower().Contains(nombreDueño.ToLower()))
+                    .ToList();
+
+                if (personasEncontradas.Count == 1)
+                {
+                    Persona dueñoEncontrado = personasEncontradas.First();
+                    mascota.Dueño = dueñoEncontrado;
+                    dueñoEncontrado.Mascotas.Add(mascota);
+
+                    System.Console.WriteLine($"Dueño asignado: {dueñoEncontrado.Nombre}");
+                }
+                else if (personasEncontradas.Count > 1)
+                {
+                    System.Console.WriteLine("Múltiples personas encontradas:");
+                    foreach (var persona in personasEncontradas)
+                    {
+                        Console.WriteLine($"Id: {persona.Id}, Nombre: {persona.Nombre}");
+                    }
+
+                    System.Console.Write("Ingrese el ID del dueño de la mascota: ");
+                    int idDueñoSeleccionado = int.Parse(Console.ReadLine());
+
+                    Persona dueñoSeleccionado = personasEncontradas.FirstOrDefault(p => p.Id == idDueñoSeleccionado);
+
+                    if (dueñoSeleccionado != null)
+                    {
+                        mascota.Dueño = dueñoSeleccionado;
+                        dueñoSeleccionado.Mascotas.Add(mascota);
+
+                        System.Console.WriteLine($"Dueño asignado: {dueñoSeleccionado.Nombre}");
+                    }
+                    else
+                    {
+                        System.Console.WriteLine("ID de dueño no válido. La mascota quedará sin dueño.");
+                    }
+                }
+                else
+                {
+                    System.Console.WriteLine("No se encontraron personas con ese nombre. La mascota quedará sin dueño.");
+                }
+            }
+        }
+
+        public void BuscarPorEspecie(Especie especie){
 
             System.Console.WriteLine("¿De cuál especie deseas ver las mascotas?");
             System.Console.WriteLine("1 - Perro");
@@ -51,29 +148,29 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
 
                 case 1: 
 
-                    MostrarMascotasPorEspecie(EspecieEnum.Perro);
+                    MostrarMascotasPorEspecie(Especie.Perro);
                     break;
 
                 case 2: 
 
-                    MostrarMascotasPorEspecie(EspecieEnum.Gato);
+                    MostrarMascotasPorEspecie(Especie.Gato);
                     break;
 
                 case 3:
 
-                    MostrarMascotasPorEspecie(EspecieEnum.Capibara);
+                    MostrarMascotasPorEspecie(Especie.Capibara);
                     break;
 
                 case 4:
 
-                    MostrarMascotasPorEspecie(EspecieEnum.Pajaro);
+                    MostrarMascotasPorEspecie(Especie.Pajaro);
                     break;
 
             }
 
         }
 
-        private void MostrarMascotasPorEspecie(EspecieEnum especie)
+        private void MostrarMascotasPorEspecie(Especie especie)
         {
             System.Console.WriteLine($"Mascotas de la especie: {especie}");
 
