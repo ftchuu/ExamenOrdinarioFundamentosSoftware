@@ -16,4 +16,5 @@ public interface IMascota
 
     void HacerRuido();
     void CambiarDueño(Persona nuevoDueño);
+    void SerAcariciado;
 }
