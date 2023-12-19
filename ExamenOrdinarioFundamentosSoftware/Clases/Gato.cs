@@ -4,24 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace ExamenOrdinarioFundamentosSoftware.Clases
 {
-    public class Gato : IMascota
+    public class Gato : IMascota, IAcariciable
     {
-        private static int contadorGatos = 1;
-        private const int EdadMaxGato = 18;
+        private static int contadorGato = 1;
+        private const int EdadMaxima = 18;
 
         public string Id { get; }
         public string Nombre { get; }
-        public int Edad { get; }
+        public int Edad { get; set; }
         public Temperamento Temperamento { get; }
-        public Dueño Dueño { get; private set; }
+        public Persona Dueño { get; set; }
 
-        public Gato(string nombre, int edad, Temperamento temperamento, Dueño dueño = null)
+        public Gato(string nombre, int edad, Temperamento temperamento, Persona dueño)
         {
-            Id = $"Gato-{contadorGatos++}";
+            Id = $"Gato-{contadorGato++}";
             Nombre = nombre;
-            Edad = (edad >= 0 && edad <= EdadMaxGato) ? edad : EdadMaxGato;
+            Edad = (edad > EdadMaxima) ? EdadMaxima : edad;
             Temperamento = temperamento;
             Dueño = dueño;
         }
@@ -33,13 +34,40 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
 
         public void CambiarDueño(Persona nuevoDueño)
         {
-            if (nuevoDueño != null)
+            Console.WriteLine($"{Nombre} ha cambiado su dueño a {nuevoDueño.Name}");
+            Dueño = nuevoDueño;
+        }
+
+        public void SerAcariciado()
+        {
+            Console.WriteLine($"{Nombre} está siendo acariciado");
+        }
+
+        public void ResponderACaricia()
+        {
+            switch (Temperamento)
             {
-                Dueño = nuevoDueño;
-                Console.WriteLine($"El gato {Nombre} ha cambiado su dueño a {nuevoDueño.Nombre}");
+                case Temperamento.Amable:
+                case Temperamento.Nervioso:
+                    Ronronear();
+                    break;
+                case Temperamento.Agresivo:
+                    Rasguñar();
+                    break;
+                default:
+                    Console.WriteLine($"{Nombre} no reacciona a la caricia.");
+                    break;
             }
         }
 
-        // Otros métodos específicos de los gatos
+        private void Ronronear()
+        {
+            Console.WriteLine($"{Nombre} está ronroneando.");
+        }
+
+        private void Rasguñar()
+        {
+            Console.WriteLine($"{Nombre} está intentando rasguñar.");
+        }
     }
 }
