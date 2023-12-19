@@ -42,5 +42,32 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
         {
             Console.WriteLine($"{Nombre} está siendo acariciado");
         }
+
+        public void ResponderACaricia()
+        {
+            switch (Temperamento)
+            {
+                case Temperamento.Amable:
+                case Temperamento.Nervioso:
+                    Ronronear();
+                    break;
+                case Temperamento.Agresivo:
+                    Rasguñar();
+                    break;
+                default:
+                    Console.WriteLine($"{Nombre} no reacciona a la caricia.");
+                    break;
+            }
+        }
+
+        private void Ronronear()
+        {
+            Console.WriteLine($"{Nombre} está ronroneando.");
+        }
+
+        private void Rasguñar()
+        {
+            Console.WriteLine($"{Nombre} está intentando rasguñar.");
+        }
     }
 }
