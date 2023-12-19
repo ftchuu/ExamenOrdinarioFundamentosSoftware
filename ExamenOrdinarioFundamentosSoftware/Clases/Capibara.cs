@@ -13,18 +13,18 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
         private string _nombre;
         public string Nombre { get { return _nombre; } }
         public int Edad { get; set; }
-        Temperamento Temperamento = "Amable"; //hay que esperar al enumerador
-        Persona Dueño { get; set; }
+        public Temperamento Temperamento { get; } 
+        public Persona Dueño { get; set; }
 
         public int contadorCapibara = 0;
         public int edadMaxima = 11;
 
-        void HacerRuido()
+        public void HacerRuido()
         {
             Console.WriteLine("cui cui");
         }
 
-        void CambiarDueño(Persona nuevoDueño)
+        public void CambiarDueño(Persona nuevoDueño)
         {
             Console.WriteLine($"{Nombre} ha cambiado su dueño a {nuevoDueño.Name}");
             nuevoDueño = this.Dueño;
@@ -42,6 +42,7 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
             {
                 edad = Edad;
             }
+            temperamento = Temperamento.Amable;
             temperamento = this.Temperamento;
             dueño = this.Dueño;
         }
