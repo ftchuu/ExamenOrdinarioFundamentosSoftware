@@ -66,13 +66,12 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
         }
         public void AcariciarMascotas()
         {
-            foreach(var mascota in mascotas)
+            foreach (var mascota in Mascotas)
             {
-                if (mascota is IAcariciable)
+                if (mascota is IAcariciable acariciable)
                 {
-
-                    AcariciarMascota(mascota as IAcariciable);
-                    
+                    Console.WriteLine($"{Name} acaricia a {acariciable.Nombre}");
+                    acariciable.SerAcariciado(); // Llamada al método SerAcariciado
                 }
                 else
                 {
