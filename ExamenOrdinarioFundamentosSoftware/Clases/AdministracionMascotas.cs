@@ -84,9 +84,16 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
 
         }
 
-        public void BuscarPorNombre(){
+        private void BuscarPorNombre(){
 
-            
+            System.Console.WriteLine("Ingrese el nombre de la mascota que quiere buscar:");
+            string nombre = Console.ReadLine();
+
+            var mascotasEncontradas = mascotas
+                .Where(m => m.Nombre.ToLower().Contains(nombre.ToLower()))
+                .ToList();
+
+            MostrarMascotasEncontradas(mascotasEncontradas);
             
         }
 
