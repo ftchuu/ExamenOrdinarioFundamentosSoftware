@@ -8,5 +8,10 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
 {
     public class AdministracionPersona
     {
+        public List<Persona> personasRegistradas;
+        public AdministracionPersona()
+        {
+            personasRegistradas = new List<Persona>();
+        }
     }
 }
