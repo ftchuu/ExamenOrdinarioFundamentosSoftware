@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ExamenOrdinarioFundamentosSoftware.Clases
 {
-    public class Gato : IMascota
+    public class Gato : IMascota, IAcariciable
     {
         private static int contadorGato = 1;
         private const int EdadMaxima = 18;
@@ -36,6 +36,11 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
         {
             Console.WriteLine($"{Nombre} ha cambiado su dueño a {nuevoDueño.Name}");
             Dueño = nuevoDueño;
+        }
+
+        public void SerAcariciado()
+        {
+            Console.WriteLine($"{Nombre} está siendo acariciado");
         }
     }
 }
