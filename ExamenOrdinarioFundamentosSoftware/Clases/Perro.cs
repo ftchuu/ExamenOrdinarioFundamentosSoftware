@@ -15,15 +15,15 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
         public string Nombre { get; }
         public int Edad { get; }
         public Temperamento Temperamento { get; }
-        public Dueño Dueño { get; private set; }
+        public Persona Dueño { get; private set; }
 
-        public Perro(string nombre, int edad, Temperamento temperamento, Dueño dueño = null)
+        public Perro(string nombre, int edad, Temperamento temperamento, Persona dueño = null)
         {
             Id = $"Perro-{contadorPerros++}";
             Nombre = nombre;
             Edad = (edad >= 0 && edad <= EdadMaxPerro) ? edad : EdadMaxPerro;
             Temperamento = temperamento;
-            Dueño = dueño;
+            Persona = dueño;
         }
 
         public void HacerRuido()
@@ -35,7 +35,7 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
         {
             if (nuevoDueño != null)
             {
-                Dueño = nuevoDueño;
+                Persona = nuevoDueño;
                 Console.WriteLine($"El perro {Nombre} ha cambiado su dueño a {nuevoDueño.Nombre}");
             }
         }
