@@ -11,11 +11,13 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
         private static int contadorPerros = 1;
         private const int EdadMaxPerro = 14;
 
-        public string Id { get; }
-        public string Nombre { get; }
-        public int Edad { get; }
+        private string _id;
+        public string Id { get { return _id; } }
+        private string _nombre;
+        public string Nombre { get { return _nombre; } }
+        public int Edad { get; set; }
         public Temperamento Temperamento { get; }
-        public Persona Dueño { get; private set; }
+        public Persona Dueño { get; set; }
 
         public Perro(string nombre, int edad, Temperamento temperamento, Persona dueño = null)
         {
@@ -26,12 +28,12 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
             Persona = dueño;
         }
 
-        public void HacerRuido()
+         void HacerRuido()
         {
             Console.WriteLine("Guau Guau");
         }
 
-        public void CambiarDueño(Persona nuevoDueño)
+        void CambiarDueño(Persona nuevoDueño)
         {
             if (nuevoDueño != null)
             {
