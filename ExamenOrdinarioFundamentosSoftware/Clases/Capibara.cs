@@ -9,7 +9,7 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
     public class Capibara:IMascota
     {
         private string _id;
-        public string Id { get { return _id; } set { _id = value; }
+        public string Id { get { return _id; } set { _id = value; } }
         private string _nombre;
         public string Nombre { get { return _nombre; } }
         public int Edad { get; set; }
