@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ExamenOrdinarioFundamentosSoftware.Interfaces;
 
 namespace ExamenOrdinarioFundamentosSoftware.Clases
 {
@@ -52,19 +53,23 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
         }
         public void AcariciarMascota(IAcariciable mascotaAcariciable)
         {
-            Console.WriteLine($"{Name} acaricia a {mascotaAcariciable.Nombre}");
+            IMascota mascota = mascotaAcariciable as IMascota;
+            Console.WriteLine($"{Name} acaricia a {mascota.Nombre}");
+
         }
         public void AcariciarMascotas()
         {
             foreach(var mascota in mascotas)
             {
-                if (mascota != IAcariciable)
+                if (mascota is IAcariciable)
                 {
-                    Console.WriteLine($"{Name} intenta acariciar a {mascota.Nombre}, pero no es posible");
+
+                    AcariciarMascota(mascota as IAcariciable);
+                    
                 }
                 else
                 {
-                    AcariciarMascota(mascota);
+                    Console.WriteLine($"{Name} intenta acariciar a {mascota.Nombre}, pero no es posible");
                 }
             }
         }
