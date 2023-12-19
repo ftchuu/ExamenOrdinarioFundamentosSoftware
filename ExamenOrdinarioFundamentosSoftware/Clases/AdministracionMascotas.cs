@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,7 +29,7 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
             Console.WriteLine("Mascotas registradas:");
             foreach (var mascota in mascotas)
             {
-                Console.WriteLine($"Id: {mascota.Id}, Nombre: {mascota.Nombre}, Especie: {mascota.Especie}");
+                System.Console.WriteLine($"Id: {mascota.Id}, Nombre: {mascota.Nombre}, Especie: {mascota.Especie}");
             }
 
         }
@@ -74,7 +75,7 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
 
         private void MostrarMascotasPorEspecie(EspecieEnum especie)
         {
-            Console.WriteLine($"Mascotas de la especie: {especie}");
+            System.Console.WriteLine($"Mascotas de la especie: {especie}");
 
             var mascotasEncontradas = mascotas
                 .Where(m => m.Especie.ToLower() == especie.ToString().ToLower())
@@ -99,20 +100,93 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
 
         private void MostrarMascotasEncontradas(List<Mascota> mascotasEncontradas)
         {
-            Console.WriteLine("Mascotas encontradas:");
+            System.Console.WriteLine("Mascotas encontradas:");
             foreach (var mascota in mascotasEncontradas)
             {
-                Console.WriteLine($"Id: {mascota.Id}, Nombre: {mascota.Nombre}, Especie: {mascota.Especie}");
+                System.Console.WriteLine($"Id: {mascota.Id}, Nombre: {mascota.Nombre}, Especie: {mascota.Especie}");
             }
         }
 
         public void ExaminarMascota(){
 
-            
+            System.Console.WriteLine("Ingrese el ID de la mascota que desea examinar");
+            int idMascota = int.Parse(Console.ReadLine());
+
+            Mascota mascota = mascotas.FirstOrDefault(m => m.Id == idMascota);
+
+            if (mascota != null)
+            {
+                MostrarDatosMascota(mascota);
+            }
+            else
+            {
+                System.Console.WriteLine("No se encontró una mascota con ese ID.");
+                System.Console.Write("¿Desea buscar mascota por nombre? (S/N): ");
+                if (Console.ReadLine().ToUpper() == "S")
+                {
+                    System.Console.WriteLine("Ingrese el nombre de la mascota que quiere buscar:");
+                    string nombre = Console.ReadLine();
+
+                    var mascotasEncontradas = mascotas
+                        .Where(m => m.Nombre.ToLower().Contains(nombre.ToLower()))
+                        .ToList();
+
+                    if (mascotasEncontradas.Count == 1)
+                    {
+                        MostrarDatosMascota(mascotasEncontradas.First());
+
+                    }
+                    else if (mascotasEncontradas.Count > 1)
+                    {
+                        System.Console.WriteLine("Múltiples mascotas encontradas:");
+                        foreach (var mascotaEncontrada in mascotasEncontradas)
+                        {
+                            Console.WriteLine($"Id: {mascotaEncontrada.Id}, Nombre: {mascotaEncontrada.Nombre}, Especie: {mascotaEncontrada.Especie}");
+                        }
+
+                        System.Console.Write("Ingrese el ID de la mascota que desea examinar: ");
+                        int idMascotaSeleccionada = int.Parse(Console.ReadLine());
+
+                        Mascota mascotaSeleccionada = mascotasEncontradas.FirstOrDefault(m => m.Id == idMascotaSeleccionada);
+
+                        if (mascotaSeleccionada != null)
+                        {
+                            MostrarDatosMascota(mascotaSeleccionada);
+
+                        }
+                        else
+                        {
+                            System.Console.WriteLine("ID de mascota no válido");
+                        }
+                    }
+                    else
+                    {
+                        System.Console.WriteLine("No se encontraron mascotas con ese nombre.");
+                    }
+                }
+            }
 
         }
 
-    }
+        private void MostrarDatosMascota(Mascota mascota)
+        {
+            System.Console.WriteLine($"Datos de la mascota:");
+            System.Console.WriteLine($"Id: {mascota.Id}");
+            System.Console.WriteLine($"Nombre: {mascota.Nombre}");
+            System.Console.WriteLine($"Especie: {mascota.Especie}");
+            System.Console.WriteLine($"Temperamento: {mascota.Temperamento}");
+            System.Console.WriteLine($"Edad: {mascota.Edad}");
 
+            if (mascota.Dueño != null)
+            {
+                System.Console.WriteLine($"Dueño: {mascota.Dueño.Nombre}");
+            }
+            else
+            {
+                System.Console.WriteLine("La mascota no tiene asignado un dueño.");
+            }
+        }
+
+    }
 
 }
