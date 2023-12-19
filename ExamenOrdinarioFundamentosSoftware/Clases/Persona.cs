@@ -20,7 +20,12 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
 
         public IMascota ObtenerMascotaPorId (string id)
         {
-            //ni idea de como hacer este
+            foreach(var mascota in mascotas)
+            {
+                if (mascota.Id == id) return mascota;
+            }
+
+            return null;
             
         }
 
