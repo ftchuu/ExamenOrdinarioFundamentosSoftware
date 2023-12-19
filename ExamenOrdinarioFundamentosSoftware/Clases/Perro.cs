@@ -43,6 +43,16 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
             Console.WriteLine($"{Nombre} está siendo acariciado");
         }
 
+        public void ResponderACaricia()
+        {
+            MoverCola();
+        }
+
+        private void MoverCola()
+        {
+            Console.WriteLine($"{Nombre} está moviendo la cola.");
+        }
+
         public void Bailar()
         {
             Console.WriteLine($"{Nombre} está sacando los prohibidos");
