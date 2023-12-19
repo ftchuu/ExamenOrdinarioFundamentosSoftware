@@ -25,8 +25,8 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
         {
             Console.WriteLine("¿Cómo se llama la persona que quiere registrar?");
             string nombrePersona = Console.ReadLine();
-            Persona nuevaPersona = new Persona(nombrePersona);
-            personasRegistradas.Add(nuevaPersona);
+            //Persona nuevaPersona = new Persona(nombrePersona);
+            //personasRegistradas.Add(nuevaPersona);
         }
 
         public void BuscarPersonaPorNombre()
