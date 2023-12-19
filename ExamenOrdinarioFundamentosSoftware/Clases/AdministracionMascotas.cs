@@ -48,6 +48,7 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
                 AsignarDueño(nuevaMascota);
             }
 
+            // Se agrega una nueva mascota
             mascotas.Add(nuevaMascota);
 
             System.Console.WriteLine("Mascota registrada exitosamente.");
@@ -64,6 +65,7 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
 
                 Persona dueño = personas.FirstOrDefault(p => p.Id == idDueño);
 
+                // Se asigna un dueño a la mascota dependiendo de si el dueño existe, si no, se da la opción de buscar por nombre
                 if (dueño != null)
                 {
                     mascota.Dueño = dueño;
@@ -90,6 +92,7 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
                 System.Console.Write("Ingrese el nombre del dueño: ");
                 string nombreDueño = Console.ReadLine();
 
+                // se busca la persona y se dan dos opciones dependiendo de cuantas personas se encontraron
                 var personasEncontradas = personas
                 
                     .Where(p => p.Nombre.ToLower().Contains(nombreDueño.ToLower()))
@@ -187,6 +190,8 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
             System.Console.WriteLine("Ingrese el nombre de la mascota que quiere buscar:");
             string nombre = Console.ReadLine();
 
+            // se muestran las mascotas dependiendo del nombre de estas
+
             var mascotasEncontradas = mascotas
                 .Where(m => m.Nombre.ToLower().Contains(nombre.ToLower()))
                 .ToList();
@@ -211,6 +216,7 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
 
             Mascota mascota = mascotas.FirstOrDefault(m => m.Id == idMascota);
 
+            // se busca la mascota por Id, si no existe o es erroneo, se le da la opción al usuario de buscar por nombre
             if (mascota != null)
             {
                 MostrarDatosMascota(mascota);
