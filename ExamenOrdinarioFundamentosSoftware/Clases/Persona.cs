@@ -11,7 +11,22 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
         private int id;
         public int Id { get { return id; } set { id = value; } }
         private string _name;
-        public string Name { get { return _name; }set { _name = value; } }//falta verificacion para que el nombre no este en blanco
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    Console.WriteLine("El nombre no puede estar en blanco");
+                }
+                else
+                {
+                    _name = value;
+                }
+            }
+        }
+         
         public List<IMascota> mascotas;
         public List<IMascota> ObtenerMascotas()
         {
