@@ -31,7 +31,7 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
             Console.WriteLine("Guau Guau");
         }
 
-        public void CambiarDueño(Dueño nuevoDueño)
+        public void CambiarDueño(Persona nuevoDueño)
         {
             if (nuevoDueño != null)
             {
