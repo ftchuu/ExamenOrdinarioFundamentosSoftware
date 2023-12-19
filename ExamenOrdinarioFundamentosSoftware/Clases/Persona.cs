@@ -30,11 +30,12 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
         private int contadorPersona = 0;
          
         public List<IMascota> mascotas;
-        public Persona (string nombre, int id)
+        public Persona (string nombre)
         {
             nombre = Name;
             id = contadorPersona++;
             id = this.Id;
+            mascotas = new List<IMascota>();
         }
         public List<IMascota> ObtenerMascotas()
         {
