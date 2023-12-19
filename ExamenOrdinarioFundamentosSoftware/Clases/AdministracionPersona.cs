@@ -29,5 +29,19 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
             personasRegistradas.Add(nuevaPersona);
         }
 
+        public void BuscarPersonaPorNombre()
+        {
+            Console.WriteLine("¿Cómo se llama la persona a buscar?");
+            string nombrePersona = Console.ReadLine();
+            foreach(var persona in personasRegistradas)
+            {
+                if(persona.Name.Contains(nombrePersona))
+                {
+                    Console.WriteLine($"{persona.Id} - {persona.Name}");
+                }
+                
+            }
+        }
+
     }
 }
