@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ExamenOrdinarioFundamentosSoftware.Clases
 {
-    public class Perro : IMascota
+    public class Perro : IMascota, IAcariciable, IBailarina
     {
         private static int contadorPerro = 1;
         private const int EdadMaxima = 14;
@@ -36,6 +36,16 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
         {
             Console.WriteLine($"{Nombre} ha cambiado su dueño a {nuevoDueño.Name}");
             Dueño = nuevoDueño;
+        }
+
+        public void SerAcariciado()
+        {
+            Console.WriteLine($"{Nombre} está siendo acariciado");
+        }
+
+        public void Bailar()
+        {
+            Console.WriteLine($"{Nombre} está sacando los prohibidos");
         }
     }
 }
