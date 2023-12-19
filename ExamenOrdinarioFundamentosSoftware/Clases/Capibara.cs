@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExamenOrdinarioFundamentosSoftware.Clases
 {
-    internal class Capibara
+    public class Capibara
     {
     }
 }

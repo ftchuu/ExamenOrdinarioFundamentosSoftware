@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExamenOrdinarioFundamentosSoftware.Clases
 {
-    internal class Persona
+    public class Persona
     {
     }
 }
