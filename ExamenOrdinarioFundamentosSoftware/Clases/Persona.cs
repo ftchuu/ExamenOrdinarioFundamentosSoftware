@@ -27,8 +27,15 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
                 }
             }
         }
+        private int contadorPersona = 0;
          
         public List<IMascota> mascotas;
+        public Persona (string nombre, int id)
+        {
+            nombre = Name;
+            id = contadorPersona++;
+            id = this.Id;
+        }
         public List<IMascota> ObtenerMascotas()
         {
             return mascotas;
