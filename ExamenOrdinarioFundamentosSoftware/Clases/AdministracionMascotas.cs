@@ -39,6 +39,13 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
 
         public BuscarPorEspecie(EspecieEnum especie){
 
+            System.Console.WriteLine("¿De cuál especie deseas ver las mascotas?");
+            System.Console.WriteLine("1 - Perro");
+            System.Console.WriteLine("2 - Gato");
+            System.Console.WriteLine("3 - Capibara");
+            System.Console.WriteLine("4 - Párajo");
+            int especieABuscar = int.Parse(Console.ReadLine());
+
         }
 
         public BuscarPorNombre(Mascota ){
