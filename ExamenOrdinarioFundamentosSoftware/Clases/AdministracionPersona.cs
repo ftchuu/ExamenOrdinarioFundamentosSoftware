@@ -13,5 +13,13 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
         {
             personasRegistradas = new List<Persona>();
         }
+        public void MostrarPersonasRegistradas()
+        {
+            foreach(var persona in personasRegistradas)
+            {
+                Console.WriteLine($"{persona.Id} - {persona.Name}");
+            }
+        }
+
     }
 }
