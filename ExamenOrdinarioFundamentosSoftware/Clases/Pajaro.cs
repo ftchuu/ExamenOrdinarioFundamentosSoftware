@@ -9,11 +9,13 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
 {
     public class Pajaro : IMascota
     {
-        public string Id { get; }
-        public string Nombre { get; }
-        public int Edad { get; }
-        public Temperamento Temperamento { get; }
-        public Persona Dueño { get; }
+        private string _id;
+        public string Id { get { return _id; } }
+        private string _nombre;
+        public string Nombre { get { return _nombre; } }
+        public int Edad { get; set; }
+        public Temperamento Temperamento { get; } //hay que esperar al enumerador
+        public Persona Dueño { get; set; }
         private int EdadMaxima = 8;
         private int contadorPajaro = 0;
 
