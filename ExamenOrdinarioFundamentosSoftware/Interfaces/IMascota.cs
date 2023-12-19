@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ExamenOrdinarioFundamentosSoftware.Clases;
 
 public interface IMascota
 {
@@ -10,8 +11,8 @@ public interface IMascota
     string Nombre { get; }
     int Edad { get; }
     Temperamento Temperamento { get; }
-    Dueño Dueño { get; }
+    Persona Dueño { get; }
 
     void HacerRuido();
-    void CambiarDueño(Dueño nuevoDueño);
+    void CambiarDueño(Persona nuevoDueño);
 }
