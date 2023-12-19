@@ -8,6 +8,10 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
 {
     public class AdminstracionMascotas
     {
+
+        private List<Mascota> mascotas = new List<Mascota>();
+        private List<Dueño> dueños = new List<Dueño>();
+
         static void Main(string[] args)
         {
             System.Console.WriteLine("Seleccione lo que quiere realizar");
@@ -17,6 +21,32 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
             System.Console.WriteLine("4 - Buscar mascotas por nombre");
             System.Console.WriteLine("5 - Examinar mascota");
             System.Console.WriteLine("6 - Volver al menú anterior");
+        }
+
+        public MostrarMascotas(){
+
+            Console.WriteLine("Mascotas registradas:");
+            foreach (var mascota in mascotas)
+            {
+                Console.WriteLine($"Id: {mascota.Id}, Nombre: {mascota.Nombre}, Especie: {mascota.Especie}");
+            }
+
+        }
+
+        public RegistrarMascota(){
+
+        }
+
+        public BuscarPorEspecie(EspecieEnum especie){
+
+        }
+
+        public BuscarPorNombre(Mascota ){
+            
+        }
+
+        public ExaminarMascota(){
+
         }
 
     }
