@@ -14,7 +14,7 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
         private string _nombre;
         public string Nombre { get { return _nombre; } }
         public int Edad { get; set; }
-        public Temperamento Temperamento { get; } //hay que esperar al enumerador
+        public Temperamento Temperamento { get; }
         public Persona Dueño { get; set; }
         private int EdadMaxima = 8;
         private int contadorPajaro = 0;
