@@ -23,7 +23,7 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
             System.Console.WriteLine("6 - Volver al menú anterior");
         }
 
-        public MostrarMascotas(){
+        public void MostrarMascotas(){
 
             Console.WriteLine("Mascotas registradas:");
             foreach (var mascota in mascotas)
@@ -33,11 +33,11 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
 
         }
 
-        public RegistrarMascota(){
+        public void RegistrarMascota(){
 
         }
 
-        public BuscarPorEspecie(EspecieEnum especie){
+        public void BuscarPorEspecie(EspecieEnum especie){
 
             System.Console.WriteLine("¿De cuál especie deseas ver las mascotas?");
             System.Console.WriteLine("1 - Perro");
@@ -46,13 +46,62 @@ namespace ExamenOrdinarioFundamentosSoftware.Clases
             System.Console.WriteLine("4 - Párajo");
             int especieABuscar = int.Parse(Console.ReadLine());
 
+            switch (especieABuscar){
+
+                case 1: 
+
+                    MostrarMascotasPorEspecie(EspecieEnum.Perro);
+                    break;
+
+                case 2: 
+
+                    MostrarMascotasPorEspecie(EspecieEnum.Gato);
+                    break;
+
+                case 3:
+
+                    MostrarMascotasPorEspecie(EspecieEnum.Capibara);
+                    break;
+
+                case 4:
+
+                    MostrarMascotasPorEspecie(EspecieEnum.Pajaro);
+                    break;
+
+            }
+
         }
 
-        public BuscarPorNombre(Mascota ){
+        private void MostrarMascotasPorEspecie(EspecieEnum especie)
+        {
+            Console.WriteLine($"Mascotas de la especie: {especie}");
+
+            var mascotasEncontradas = mascotas
+                .Where(m => m.Especie.ToLower() == especie.ToString().ToLower())
+                .ToList();
+
+            MostrarMascotasEncontradas(mascotasEncontradas);
+
+        }
+
+        public void BuscarPorNombre(){
+
+            
             
         }
 
-        public ExaminarMascota(){
+        private void MostrarMascotasEncontradas(List<Mascota> mascotasEncontradas)
+        {
+            Console.WriteLine("Mascotas encontradas:");
+            foreach (var mascota in mascotasEncontradas)
+            {
+                Console.WriteLine($"Id: {mascota.Id}, Nombre: {mascota.Nombre}, Especie: {mascota.Especie}");
+            }
+        }
+
+        public void ExaminarMascota(){
+
+            
 
         }
 
